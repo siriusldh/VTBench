@@ -12,7 +12,9 @@ METHOD_KEYS =['SD', 'IDM', 'CatVTON', 'HandFit', 'FitDiT', 'CrossVTON', 'Qwen-Ed
 # Mapping from CSV letters to models for human scores
 CSV_MAP = {'A': 'SD', 'B': 'IDM', 'C': 'CatVTON', 'D': 'HandFit', 'E': 'FitDiT', 'F': 'CrossVTON', 'G': 'Qwen-Edit'}
 
-# Mapping from various TXT aliases to standard models (OOTD maps to SD for CrossVTON)
+# Mapping from TXT column names to the internal slot of each method. Slot 'SD' (letter A) is
+# SD-VITON in four dimensions; in the Cross-Category study SD-VITON cannot perform cross-category
+# transfer and OOTDiffusion takes its place, so cross_scores.txt names that column 'OOTD'.
 TXT_KEY_MAP = {
     'SD': 'SD', 'SD-VITON': 'SD', 'OOTD': 'SD',
     'IDM': 'IDM', 'idm': 'IDM',

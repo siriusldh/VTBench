@@ -1,4 +1,4 @@
-sample_id,IDM,CatVTON,FitDiT,CrossVTON,SD,HandFit,Qwen-Edit
+sample_id,IDM,CatVTON,FitDiT,CrossVTON,OOTD,HandFit,Qwen-Edit
 CCP-1-042-0,0,0,0,0,0,0,1
 CCP-1-089-0,0,0,0,1,0,0,0
 CCP-1-102-0,0,0,0,0,0,0,1

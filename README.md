@@ -198,7 +198,7 @@ To add a method, append its eight scores to the CSV and rerun.
 
 ## 8. Human-alignment analysis
 
-`results_v2/` (20 annotators' pairwise votes) and `human_preference/` (per-sample scores) reproduce the human-alignment statistics (Fig. 4, Tab. 2, and the bootstrap CIs in the appendix). They are identical to `human_evaluation/annotations/` and `human_evaluation/per_sample_scores/` on Hugging Face and use the dataset's sample IDs (`CBC-*`, `FTF-*`, `HOC-*`, `CCP-*`, `VITONHD-*`; see `human_evaluation/sample_map.csv`).
+`results_v2/` (20 annotators' pairwise votes) and `human_preference/` (per-sample scores) reproduce the human-alignment statistics (Fig. 4, Tab. 2, and the bootstrap CIs in the appendix). Method letter `A` / slot `SD` is SD-VITON, except in the Cross-Category study, where OOTDiffusion takes its place (column `OOTD` in `cross_scores.txt`). The files are identical to `human_evaluation/annotations/` and `human_evaluation/per_sample_scores/` on Hugging Face and use the dataset's sample IDs (`CBC-*`, `FTF-*`, `HOC-*`, `CCP-*`, `VITONHD-*`; see `human_evaluation/sample_map.csv`).
 
 ```bash
 python human_preference/metric_bt.py                 # Spearman rho per dimension
