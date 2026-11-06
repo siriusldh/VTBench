@@ -54,7 +54,7 @@ export DASHSCOPE_API_KEY="your_api_key_here"
 
 ## 1. Texture Fidelity
 
-* **$F_t$** (text-level OCR fidelity): equal-weight mean of term-frequency similarity, precision, recall, and edit-distance similarity between PP-OCRv3 outputs on the garment and on the try-on result.
+* **$F_t$** (text-level OCR fidelity): equal-weight mean of character term-frequency similarity, token-level precision and recall (whitespace words; `jieba` segments for Chinese), and normalized edit-distance similarity between PP-OCRv3 outputs on the garment and on the try-on result.
 
   ```bash
   export VTBENCH_DATA_ROOT=./data VTBENCH_METHOD=<method> VTBENCH_RESULT_DIR=./data/results/<method>

@@ -4,7 +4,11 @@
 The resampling unit is the image: one image carries its 7 method scores, all
 A/B/tie votes from the 20 questionnaires, and the 21 method-pair outcomes
 aggregated by strict plurality. Whole clusters are drawn with replacement.
-The rho and agreement statistics share the same resampling indices.
+Images of different dimensions are distinct, so each dimension is resampled
+independently (one (B, 20) index matrix per dimension, drawn in the fixed
+dimension order from a single seeded generator); within a dimension, rho and
+agreement share the same indices. The pooled agreement averages the five
+independently resampled dimensions.
 
 Aligned with the repository's authoritative implementations (no bespoke rules):
   - rho: BT win rates + Spearman, identical to metric_bt.py (cross-checked)
@@ -200,9 +204,11 @@ def main() -> None:
             raise RuntimeError(f"{metric}: image sets differ between agreement and rho data")
         agreement_by_dim[metric] = np.asarray([counts[image] for image in images], dtype=np.float64)
 
-    # ---- Frozen random stream: one (B, 20) image-index matrix shared by all dimensions and both statistics ----
+    # ---- Frozen random stream: an independent (B, 20) image-index matrix per dimension
+    #      (drawn in args.metrics order); shared by rho and agreement within a dimension ----
     rng = np.random.default_rng(args.seed)
-    draws = rng.integers(0, N_IMAGES_PER_DIM, size=(args.n_boot, N_IMAGES_PER_DIM))
+    draws_by_dim = {m: rng.integers(0, N_IMAGES_PER_DIM, size=(args.n_boot, N_IMAGES_PER_DIM))
+                    for m in args.metrics}
 
     results = {}
     overall_agree_boot = np.zeros(args.n_boot)
@@ -221,7 +227,7 @@ def main() -> None:
         boot_rho = np.empty(args.n_boot)
         boot_agree = np.empty(args.n_boot)
         for b in range(args.n_boot):
-            idx = draws[b]
+            idx = draws_by_dim[metric][b]
             boot_rho[b] = rho_from_wins(
                 win_rates(machine_matrix[idx].sum(axis=0), N_IMAGES_PER_DIM),
                 win_rates(human_matrix[idx].sum(axis=0), N_IMAGES_PER_DIM, n_raters),
@@ -265,7 +271,7 @@ def main() -> None:
     # ---- Frozen metadata ----
     metadata = {
         "resampling_unit": "image (all 7 methods, all 20 questionnaires and 21 pairs kept together)",
-        "shared_draws": "one (B, 20) image-index matrix reused across all dimensions and both statistics",
+        "draws": "independent (B, 20) image-index matrix per dimension (drawn in dimension order); shared by rho and agreement within a dimension",
         "ci_method": "percentile bootstrap (2.5/97.5)",
         "seed": args.seed,
         "n_boot": args.n_boot,
@@ -294,7 +300,7 @@ def main() -> None:
     lines = [
         "# Image-clustered bootstrap CI (frozen)", "",
         f"- Resampling unit: **image**; B = {args.n_boot}; seed = **{args.seed}** (numpy PCG64)",
-        f"- One shared (B, 20) draw reused for all {n_dims} dimensions and both statistics",
+        f"- Independent (B, 20) draw per dimension ({n_dims} dimensions, drawn in fixed order); rho and agreement share it within a dimension",
         f"- CI: {1 - ALPHA:.0%} percentile (2.5/97.5)",
         "- rho: BT win rates, identical to `metric_bt.py`",
         "- Agreement: `compute_agreement.run()` strict plurality; tied top votes -> tie",

@@ -1,7 +1,7 @@
 # Image-clustered bootstrap CI (frozen)
 
 - Resampling unit: **image**; B = 10000; seed = **20260730** (numpy PCG64)
-- One shared (B, 20) draw reused for all 5 dimensions and both statistics
+- Independent (B, 20) draw per dimension (5 dimensions, drawn in fixed order); rho and agreement share it within a dimension
 - CI: 95% percentile (2.5/97.5)
 - rho: BT win rates, identical to `metric_bt.py`
 - Agreement: `compute_agreement.run()` strict plurality; tied top votes -> tie
@@ -13,9 +13,9 @@
 |---|---|---|---|---|---|
 | Aesthetic | 0.8929 | [0.6429, 0.9643] | 371/420 | 0.8833 | [0.8333, 0.9310] |
 | Background | 0.8818 | [0.8214, 0.9643] | 349/420 | 0.8310 | [0.8119, 0.8500] |
-| Cross | 0.9643 | [0.7027, 0.9910] | 283/420 | 0.6738 | [0.6333, 0.7167] |
+| Cross | 0.9643 | [0.7027, 0.9910] | 283/420 | 0.6738 | [0.6333, 0.7143] |
 | Hand | 0.8571 | [0.7143, 0.9643] | 307/420 | 0.7310 | [0.6929, 0.7667] |
-| Text | 0.8829 | [0.5000, 0.9286] | 299/420 | 0.7119 | [0.6714, 0.7548] |
-| **Overall** | — | — | **1609/2100** | **0.7662** | **[0.7433, 0.7895]** |
+| Text | 0.8829 | [0.5000, 0.9286] | 299/420 | 0.7119 | [0.6690, 0.7548] |
+| **Overall** | — | — | **1609/2100** | **0.7662** | **[0.7486, 0.7833]** |
 
 Full settings (seed, B, CI method): `bootstrap_ci.json`.
