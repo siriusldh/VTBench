@@ -13,7 +13,7 @@ VTBench evaluates image-based virtual try-on along six dimensions:
 | Texture Fidelity | $F_t$ ↑ (OCR), $T_{score}$ ↑ | FTF | `F_t/`, `eval_T_score.py` |
 | Cross-Category Plausibility | $\text{VLM}_c$ ↑ (Qwen-VL-Max) | CCP | `eval_cross.py` |
 | Background Consistency | $B_{consist}$ ↓ (+ Color-aligned MSE) | CBC | `eval_complex_bg.py`, `color_aligned_mse.py` |
-| Hand Consistency | $H_{consist}$ ↓ (MPJPE-2D) | HOC | `eval_hand.py` |
+| Hand Consistency | $H_{consist}$ ↓ (MPJPE-2D) | HOC | `hand/eval_hand.py` |
 
 The overall rank $R_{avg}$ is computed by `tools/compute_ravg.py`.
 
@@ -93,6 +93,8 @@ python eval_fid_kid.py --gt_folder ./outputs/fid_sets/real --pred_folder ./outpu
 
 MPJPE-2D between hand keypoints detected (HaMeR) on the HOC person image and on the try-on result. A reference without a detected hand is excluded; if the reference hand is detected but the output hand is not, the output is counted as a failure (fixed penalty of 100 px per unmatched reference hand; predicted and reference hands are matched with the Hungarian algorithm). Detector outputs are used directly, without manual correction.
 
+All hand-evaluation code is in `hand/`: `eval_hand.py` (MPJPE-2D), `hamer_depth.py` (detectron2 ViTDet person detection → ViTPose+ whole-body keypoints → HaMeR hand reconstruction; returns the 2D hand joints), `vitpose_model.py` with `mmpose1x_configs/` (ViTPose+ loaded through mmpose 1.x), and `hamer/` (HaMeR, MIT).
+
 ### Installation
 
 ```
@@ -101,7 +103,7 @@ conda activate handfit
 pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu121
 pip install xformers==0.0.23.post1
 pip install transformers==4.39.3 accelerate==0.29.2 diffusers==0.24.0 deepspeed==0.14.0
-cd hamer && pip install -e .[all] && cd ..
+cd hand/hamer && pip install -e .[all] && cd ../..
 pip install scikit-image omegaconf kornia h5py datasets einops opencv-python gradio onnxruntime
 conda install menpo::osmesa
 pip install --upgrade pyopengl==3.1.4
@@ -109,18 +111,26 @@ pip install git+https://github.com/otaheri/chamfer_distance
 pip install git+https://github.com/otaheri/bps_torch --no-build-isolation
 pip install git+https://github.com/facebookresearch/pytorch3d.git@stable --no-build-isolation
 pip install git+https://github.com/facebookresearch/detectron2@main#subdirectory=projects/DensePose
-cd hamer/third-party/ViTPose && pip install -v -e . && cd ../../..
+pip install -U openmim && mim install mmengine "mmcv>=2.0.0" "mmpose>=1.0.0"   # ViTPose+ via mmpose 1.x
 ```
 
-Model weights are not redistributed here; they come from the official releases:
+### Model weights
 
-* **HaMeR** and **ViTPose+ (whole-body)**: `cd hamer && bash fetch_demo_data.sh && cd ..` (downloads `_DATA/hamer_ckpts/` and `_DATA/vitpose_ckpts/` from the HaMeR authors).
-* **Detectron2 ViTDet** person detector (`cascade_mask_rcnn_vitdet_h`): downloaded automatically from `dl.fbaipublicfiles.com` on first use.
+Weights are not redistributed here; download them from the official sources into `hand/_DATA/`:
+
+| File | Source |
+|---|---|
+| `hand/_DATA/hamer_ckpts/checkpoints/hamer.ckpt` | HaMeR: `cd hand && bash hamer/fetch_demo_data.sh && cd ..` |
+| `hand/_DATA/vitpose_ckpts/vitpose+_huge/wholebody.pth` | ViTPose+ whole-body (included in the same HaMeR download) |
+| `hand/_DATA/hamer_ckpts/checkpoints/model_final_f05665.pkl` | Detectron2 ViTDet (`cascade_mask_rcnn_vitdet_h`): `wget https://dl.fbaipublicfiles.com/detectron2/ViTDet/COCO/cascade_mask_rcnn_vitdet_h/f328730692/model_final_f05665.pkl` |
+| `hand/_DATA/data/mano/MANO_RIGHT.pkl` | MANO right-hand model; register at [mano.is.tue.mpg.de](https://mano.is.tue.mpg.de) (licence of the MANO authors) |
 
 ### Run
 
+From the repository root:
+
 ```bash
-python eval_hand.py \
+python hand/eval_hand.py \
     --img-dir ./data/results/<method>/hand \
     --ref-dir ./data/benchmark_hand/image \
     --gt-json-file ./outputs/hoc_reference_pos2d.json \
@@ -223,8 +233,8 @@ The evaluation code is released under **CC BY-NC 4.0** (see [LICENSE](LICENSE)).
 
 | Path | License |
 |---|---|
-| `hamer/` | MIT (`hamer/LICENSE.md`) |
-| `hamer/third-party/ViTPose/` | upstream license in that directory |
+| `hand/hamer/` | MIT (`hand/hamer/LICENSE.md`) |
+| `hand/hamer/third-party/ViTPose/` | upstream license in that directory |
 | `F_t/wwm_ocr.py` | Apache-2.0 header retained from upstream |
 
 ## Citation

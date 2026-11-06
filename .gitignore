@@ -7,4 +7,6 @@ __pycache__/
 vlm_stitch_cache/
 inferseg/ckpt/
 json/*_cleaned.json
-hamer/third-party/ViTPose/tests/data/
+hand/hamer/third-party/ViTPose/tests/data/
+hand/_DATA/
+hand/hamer/_DATA/
