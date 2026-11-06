@@ -112,6 +112,11 @@ pip install git+https://github.com/facebookresearch/detectron2@main#subdirectory
 cd hamer/third-party/ViTPose && pip install -v -e . && cd ../../..
 ```
 
+Model weights are not redistributed here; they come from the official releases:
+
+* **HaMeR** and **ViTPose+ (whole-body)**: `cd hamer && bash fetch_demo_data.sh && cd ..` (downloads `_DATA/hamer_ckpts/` and `_DATA/vitpose_ckpts/` from the HaMeR authors).
+* **Detectron2 ViTDet** person detector (`cascade_mask_rcnn_vitdet_h`): downloaded automatically from `dl.fbaipublicfiles.com` on first use.
+
 ### Run
 
 ```bash
