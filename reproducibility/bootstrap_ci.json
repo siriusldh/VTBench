@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "resampling_unit": "image (all 7 methods, all 20 questionnaires and 21 pairs kept together)",
+    "shared_draws": "one (B, 20) image-index matrix reused across all dimensions and both statistics",
+    "ci_method": "percentile bootstrap (2.5/97.5)",
+    "seed": 20260730,
+    "n_boot": 10000,
+    "ci_level": 0.95,
+    "rng": "numpy.random.default_rng (PCG64)",
+    "agreement_source": "compute_agreement.run() (strict plurality, tied top votes -> tie)",
+    "rho_source": "metric_bt.py BT win rates + Spearman (cross-checked)",
+    "item_accounting": {
+      "pairs_per_image": 21,
+      "images_per_dimension": 20,
+      "items_per_dimension": 420,
+      "dimensions": 5,
+      "items_total": 2100,
+      "image_clusters_total": 100,
+      "votes_per_item": 20,
+      "excluded_items": 0,
+      "note": "2100 items are NOT independent bootstrap units; resampling is over image clusters."
+    }
+  },
+  "results": {
+    "Aesthetic": {
+      "n_images": 20,
+      "n_raters": 20,
+      "rho": 0.8928571428571429,
+      "rho_ci_low": 0.642857142857143,
+      "rho_ci_high": 0.9642857142857145,
+      "rho_boot_mean": 0.8646049757861293,
+      "pair_agreement": 0.8833333333333333,
+      "pair_agreement_ci_low": 0.8333333333333334,
+      "pair_agreement_ci_high": 0.930952380952381,
+      "pair_agreement_count": 371,
+      "pair_total": 420,
+      "n_valid_rho_boot": 10000
+    },
+    "Background": {
+      "n_images": 20,
+      "n_raters": 20,
+      "rho": 0.8818181818181818,
+      "rho_ci_low": 0.8214285714285715,
+      "rho_ci_high": 0.9642857142857145,
+      "rho_boot_mean": 0.8959362395168986,
+      "pair_agreement": 0.830952380952381,
+      "pair_agreement_ci_low": 0.8119047619047619,
+      "pair_agreement_ci_high": 0.85,
+      "pair_agreement_count": 349,
+      "pair_total": 420,
+      "n_valid_rho_boot": 10000
+    },
+    "Cross": {
+      "n_images": 20,
+      "n_raters": 20,
+      "rho": 0.9642857142857145,
+      "rho_ci_low": 0.702731220902536,
+      "rho_ci_high": 0.991031208965115,
+      "rho_boot_mean": 0.9036867568539012,
+      "pair_agreement": 0.6738095238095239,
+      "pair_agreement_ci_low": 0.6333333333333333,
+      "pair_agreement_ci_high": 0.7166666666666667,
+      "pair_agreement_count": 283,
+      "pair_total": 420,
+      "n_valid_rho_boot": 10000
+    },
+    "Hand": {
+      "n_images": 20,
+      "n_raters": 20,
+      "rho": 0.8571428571428573,
+      "rho_ci_low": 0.7142857142857144,
+      "rho_ci_high": 0.9642857142857145,
+      "rho_boot_mean": 0.8569497455123183,
+      "pair_agreement": 0.7309523809523809,
+      "pair_agreement_ci_low": 0.6928571428571428,
+      "pair_agreement_ci_high": 0.7666666666666667,
+      "pair_agreement_count": 307,
+      "pair_total": 420,
+      "n_valid_rho_boot": 10000
+    },
+    "Text": {
+      "n_images": 20,
+      "n_raters": 20,
+      "rho": 0.8829187134416479,
+      "rho_ci_low": 0.5,
+      "rho_ci_high": 0.9285714285714288,
+      "rho_boot_mean": 0.7645846924112684,
+      "pair_agreement": 0.7119047619047619,
+      "pair_agreement_ci_low": 0.6714285714285714,
+      "pair_agreement_ci_high": 0.7547619047619047,
+      "pair_agreement_count": 299,
+      "pair_total": 420,
+      "n_valid_rho_boot": 10000
+    }
+  },
+  "overall_pair_agreement": {
+    "pair_agreement": 0.7661904761904762,
+    "ci_low": 0.7433333333333333,
+    "ci_high": 0.7895238095238095,
+    "exact_agreement_count": 1609,
+    "aggregated_pair_count": 2100,
+    "definition": "For each image, the votes over {left-win, tie, right-win} from all questionnaires are aggregated per method pair by strict plurality (the most voted outcome wins; if two or more outcomes share the top count, the aggregated outcome is a tie). The machine outcome is then compared with the aggregated human outcome for the 21 unique method pairs; the same winner or a tie on both sides counts 1, otherwise 0."
+  }
+}

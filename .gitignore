@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.DS_Store
+/data/
+/outputs/
+vlm_stitch_cache/
+inferseg/ckpt/
+json/*_cleaned.json
+hamer/third-party/ViTPose/tests/data/

@@ -1,0 +1,135 @@
+{
+    "metadata": {
+        "metric": "R_avg",
+        "definition": "Mean rank over FID, KID, A_s, F_t, T_score, VLM_c, B_consist, H_consist; missing VLM_c is ranked last; lower is better.",
+        "models": 21
+    },
+    "rank": [
+        {
+            "position": 1,
+            "Model": "FitDiT",
+            "paradigm": "DiT-Diffusion",
+            "R_avg": 4.0
+        },
+        {
+            "position": 2,
+            "Model": "Qwen-Edit",
+            "paradigm": "Unified Multimodal",
+            "R_avg": 5.5
+        },
+        {
+            "position": 3,
+            "Model": "VTON-HandFit",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 6.0
+        },
+        {
+            "position": 4,
+            "Model": "CatVTON",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 6.5
+        },
+        {
+            "position": 5,
+            "Model": "Nano Banana",
+            "paradigm": "Unified Multimodal",
+            "R_avg": 7.0
+        },
+        {
+            "position": 6,
+            "Model": "CrossVTON",
+            "paradigm": "DiT-Diffusion",
+            "R_avg": 7.5
+        },
+        {
+            "position": 7,
+            "Model": "Seedream 4.0",
+            "paradigm": "Unified Multimodal",
+            "R_avg": 8.25
+        },
+        {
+            "position": 8,
+            "Model": "ITA-MDT",
+            "paradigm": "DiT-Diffusion",
+            "R_avg": 8.5
+        },
+        {
+            "position": 9,
+            "Model": "IDM-VTON",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 8.875
+        },
+        {
+            "position": 10,
+            "Model": "StableVITON",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 9.25
+        },
+        {
+            "position": 11,
+            "Model": "Leffa",
+            "paradigm": "DiT-Diffusion",
+            "R_avg": 9.75
+        },
+        {
+            "position": 12,
+            "Model": "TPD",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 9.875
+        },
+        {
+            "position": 13,
+            "Model": "CAT-DM",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 10.875
+        },
+        {
+            "position": 14,
+            "Model": "IMAGDressing-v1",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 13.75
+        },
+        {
+            "position": 15,
+            "Model": "SD-VITON",
+            "paradigm": "GAN",
+            "R_avg": 13.875
+        },
+        {
+            "position": 16,
+            "Model": "LaDI-VTON",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 14.0
+        },
+        {
+            "position": 17,
+            "Model": "OOTDiffusion",
+            "paradigm": "UNet-Diffusion",
+            "R_avg": 15.25
+        },
+        {
+            "position": 18,
+            "Model": "HR-VITON",
+            "paradigm": "GAN",
+            "R_avg": 16.125
+        },
+        {
+            "position": 19,
+            "Model": "FS-VTON",
+            "paradigm": "GAN",
+            "R_avg": 16.375
+        },
+        {
+            "position": 20,
+            "Model": "PF-AFN",
+            "paradigm": "GAN",
+            "R_avg": 17.375
+        },
+        {
+            "position": 21,
+            "Model": "DA-FLOW",
+            "paradigm": "GAN",
+            "R_avg": 18.875
+        }
+    ]
+}
